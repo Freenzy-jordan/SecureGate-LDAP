@@ -1,74 +1,52 @@
-# SecureGate-LDAP: MFA-Enabled Enterprise Auth Bridge
-SecureGate-LDAP is a security-focused Flask web application that demonstrates how to implement a multi-layered authentication system. It integrates Active Directory/LDAP for primary credentials with TOTP (Time-based One-Time Password) for Multi-Factor Authentication, backed by MongoDB.
+# 🛡️ SecureGate-LDAP
+### MFA-Integrated Web Application with Active Directory & LDAP
 
-# 🛡️ Security Features
-* Multi-Layered Auth: Combines LDAP/AD credential verification with Google Authenticator (TOTP).
+SecureGate-LDAP is a security-focused Flask application designed to demonstrate enterprise-grade authentication. It bridges traditional directory services (LDAP/AD) with modern security layers like **TOTP Multi-Factor Authentication** and **reCAPTCHA** bot protection.
 
-* Brute-Force Protection: Built-in rate limiting and account lockout mechanisms (5 attempts, 5-minute lockout).
+---
 
-* Bot Prevention: Integrated Google reCAPTCHA v2 to prevent automated login attempts.
+## 🚀 Key Features
+* **Dual-Layer Authentication:** Primary auth via LDAP/AD with secondary TOTP verification (Google Authenticator).
+* **Brute-Force Protection:** Intelligent rate-limiting with account lockout (5 attempts / 5-minute cooldown).
+* **Database Integration:** MongoDB backend for user metadata and login attempt tracking.
+* **Hardened Security:** * CSRF Protection via Flask-WTF.
+    * Secure Session Cookies (HttpOnly, SameSite, Secure).
+    * Security Headers (HSTS, X-Frame-Options, X-Content-Type).
+* **Bot Mitigation:** Integrated Google reCAPTCHA v2.
 
-* Hardened Headers: Implements X-Frame-Options, X-Content-Type-Options, and HSTS to mitigate common web attacks.
+---
 
-* Secure Sessions: Uses HttpOnly, SameSite=Lax, and Secure cookie flags.
+## 🛠️ Technical Stack
+* **Language:** Python 3.x
+* **Framework:** Flask
+* **Database:** MongoDB
+* **Security:** Bcrypt, PyOTP, LDAP3
+* **Frontend:** HTML5, CSS3 (Minimalist Professional UI)
 
-* Data Integrity: Passwords (local fallback) are hashed using Bcrypt with a unique salt.
+---
 
-# 🚀 Tech Stack
-* Backend: Python (Flask)
+## ⚙️ Installation & Setup
 
-* Database: MongoDB (using PyMongo)
-
-* Identity: LDAP3 (Active Directory integration)
-
-* MFA: PyOTP & QRCode
-
-* Validation: Flask-WTF & Google reCAPTCHA
-
-# 🛠️ Installation & Setup
-1. Prerequisites
-* Python 3.8+
-
-* MongoDB (Local instance or Atlas)
-
-* Google reCAPTCHA API Keys ([Get them here](https://www.google.com/recaptcha/admin/))
-
-2. Clone and Install
-Bash
-git clone https://github.com/your-username/SecureGate-LDAP.git
+### 1. Clone the repository
+```bash
+git clone [https://github.com/YourUsername/SecureGate-LDAP.git](https://github.com/YourUsername/SecureGate-LDAP.git)
 cd SecureGate-LDAP
-pip install -r requirements.txt
-3. Configuration
-Open app.py and update the following variables:
+```
 
-app.config['RECAPTCHA_PUBLIC_KEY']: Your Site Key.
+### 2. Install Dependencies
+```bash
+pip install flask flask-wtf pymongo bcrypt pyotp qrcode ldap3
+```
 
-app.config['RECAPTCHA_PRIVATE_KEY']: Your Secret Key.
+### 3. Configure API Keys
+#### Open app.py and replace the placeholder keys for reCAPTCHA:
+```python
+app.config['RECAPTCHA_PUBLIC_KEY'] = 'your_site_key'
+app.config['RECAPTCHA_PRIVATE_KEY'] = 'your_secret_key'
+```
 
-LDAP_SERVER: Your organization's LDAP URL.
-
-4. Run the Application
-Bash
+### 4. Run the App
+#### Open app.py and replace the placeholder keys for reCAPTCHA:
+```bash
 python app.py
-The app will be available at http://localhost:5000.
-
-📖 Usage Flow
-Registration: New users register and are presented with a QR Code. Scan this with Google Authenticator or Authy.
-
-Primary Login: User enters LDAP/AD credentials and solves the reCAPTCHA.
-
-MFA Challenge: Upon successful primary auth, the user is redirected to the MFA page to enter the 6-digit TOTP code.
-
-Access Granted: A secure session is established only after both factors are verified.
-
-📝 Requirements (requirements.txt)
-Ensure your requirements.txt includes:
-
-Plaintext
-Flask
-Flask-WTF
-pymongo
-bcrypt
-pyotp
-qrcode
-ldap3
+```
