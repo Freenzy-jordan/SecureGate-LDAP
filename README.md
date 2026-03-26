@@ -1,52 +1,30 @@
-# 🛡️ SecureGate-LDAP
-### MFA-Integrated Web Application with Active Directory & LDAP
+# SecureGate-LDAP
+> **Enterprise-Grade Multi-Factor Authentication Bridge**
 
-SecureGate-LDAP is a security-focused Flask application designed to demonstrate enterprise-grade authentication. It bridges traditional directory services (LDAP/AD) with modern security layers like **TOTP Multi-Factor Authentication** and **reCAPTCHA** bot protection.
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Flask](https://img.shields.io/badge/Framework-Flask-lightgrey.svg)](https://flask.palletsprojects.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
----
+## 🎯 Overview
+SecureGate-LDAP is a high-security authentication gateway that integrates **Active Directory/LDAP** with modern **TOTP (MFA)** protocols. Designed for organizations requiring a secure bridge between legacy directory services and web-based applications.
 
-## 🚀 Key Features
-* **Dual-Layer Authentication:** Primary auth via LDAP/AD with secondary TOTP verification (Google Authenticator).
-* **Brute-Force Protection:** Intelligent rate-limiting with account lockout (5 attempts / 5-minute cooldown).
-* **Database Integration:** MongoDB backend for user metadata and login attempt tracking.
-* **Hardened Security:** * CSRF Protection via Flask-WTF.
-    * Secure Session Cookies (HttpOnly, SameSite, Secure).
-    * Security Headers (HSTS, X-Frame-Options, X-Content-Type).
-* **Bot Mitigation:** Integrated Google reCAPTCHA v2.
+## 🏗️ System Architecture
+The application follows a "Zero-Trust" inspired authentication flow:
 
----
 
-## 🛠️ Technical Stack
-* **Language:** Python 3.x
-* **Framework:** Flask
-* **Database:** MongoDB
-* **Security:** Bcrypt, PyOTP, LDAP3
-* **Frontend:** HTML5, CSS3 (Minimalist Professional UI)
 
----
+1. **Identity Verification:** Authenticates against LDAP/AD.
+2. **Risk Assessment:** Google reCAPTCHA v2 validates the login attempt is human.
+3. **MFA Challenge:** 6-digit TOTP verification via PyOTP (Google Authenticator compatible).
+4. **Session Hardening:** Establishes an encrypted session with HSTS and secure cookie flags.
 
-## ⚙️ Installation & Setup
+## 🛡️ Security Implementations
+* **Rate Limiting:** Automatic account lockout after 5 failed attempts using MongoDB-backed tracking.
+* **Header Hardening:** Implementation of `X-Frame-Options: DENY` and `Content-Security-Policy`.
+* **Credential Safety:** Uses `Bcrypt` for local fallback hashing and `Secrets` for high-entropy session keys.
 
-### 1. Clone the repository
-```bash
-git clone [https://github.com/YourUsername/SecureGate-LDAP.git](https://github.com/YourUsername/SecureGate-LDAP.git)
-cd SecureGate-LDAP
-```
-
-### 2. Install Dependencies
-```bash
-pip install flask flask-wtf pymongo bcrypt pyotp qrcode ldap3
-```
-
-### 3. Configure API Keys
-#### Open app.py and replace the placeholder keys for reCAPTCHA:
-```python
-app.config['RECAPTCHA_PUBLIC_KEY'] = 'your_site_key'
-app.config['RECAPTCHA_PRIVATE_KEY'] = 'your_secret_key'
-```
-
-### 4. Run the App
-#### Open app.py and replace the placeholder keys for reCAPTCHA:
-```bash
-python app.py
-```
+## 🚀 Deployment
+1. **Setup Environment:**
+   ```bash
+   cp .env.example .env  # Configure your keys here
+   pip install -r requirements.txt

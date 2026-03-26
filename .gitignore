@@ -1,0 +1,11 @@
+# Environments
+.env
+venv/
+__pycache__/
+
+# Database/OS
+*.db
+.DS_Store
+
+# Project specific
+static/qrcode.png

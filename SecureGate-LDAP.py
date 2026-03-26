@@ -12,6 +12,8 @@ import secrets
 import bcrypt
 from datetime import datetime, timedelta
 from pymongo import MongoClient
+from dotenv import load_dotenv
+import os
 
 # LDAP import (optional - requires ldap3 package: pip install ldap3)
 try:
@@ -37,8 +39,9 @@ MONGO_URI = "mongodb://localhost:27017/"
 MONGO_DB = "mfa_app"
 
 # reCAPTCHA Configuration (GET YOUR KEYS FROM: https://www.google.com/recaptcha/admin)
-app.config['RECAPTCHA_PUBLIC_KEY'] = 'Add Your Site Key Here'
-app.config['RECAPTCHA_PRIVATE_KEY'] = 'Add Your Secret Key Here'
+load_dotenv()
+app.secret_key = os.getenv("SECRET_KEY")
+app.config['RECAPTCHA_PUBLIC_KEY'] = os.getenv("RECAPTCHA_PUBLIC_KEY")
 app.config['RECAPTCHA_ENABLED'] = True
 
 # Security headers
