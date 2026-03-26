@@ -18,7 +18,21 @@
 ## 📖 Overview
 **SecureGate-LDAP** is a hardened authentication proxy designed for the **Pearson BTEC IT System** curriculum. It introduces a **Zero-Trust** architecture to legacy infrastructure by requiring three independent factors: **Directory Credentials**, **reCAPTCHA Verification**, and **TOTP Tokens**.
 
+---
 
+## 💎 Project Advantages
+This implementation offers several key improvements over standard authentication systems, specifically focusing on **Enterprise-Grade** security.
+
+| Advantage | SecureGate-LDAP Solution | Standard Login System |
+| :--- | :--- | :--- |
+| **Credential Safety** | **MFA (TOTP)** ensures stolen passwords are useless without the physical device. | Vulnerable to single-point-of-failure if password is leaked. |
+| **Bot Mitigation** | **Google reCAPTCHA v2** prevents automated "Credential Stuffing" attacks. | Open to brute-force scripts and automated bot logins. |
+| **Identity Source** | **LDAP/Active Directory** integration allows for centralized corporate management. | Uses isolated local databases that are hard to sync at scale. |
+| **Brute Force Guard** | **MongoDB Rate Limiting** locks accounts automatically after 5 failed attempts. | Often allows unlimited attempts, risking account takeover. |
+| **Session Security** | **Hardened Headers (HSTS/CSP)** and Secure Cookies prevent MiTM attacks. | Often lacks modern security headers, leaving users at risk. |
+| **Data Privacy** | **Environment Isolation** ensures no API keys or secrets are stored in the code. | Hardcoded secrets often lead to accidental data leaks on GitHub. |
+
+---
 
 ---
 
@@ -55,18 +69,3 @@ pip install -r requirements.txt
 # 4. Run the application
 python app.py
 
------
-
-### 2\. Create the `requirements.txt`
-
-Create a new file in your repo named `requirements.txt` and paste this:
-
-```text
-Flask==2.2.3
-Flask-WTF==1.1.1
-pymongo==4.3.3
-bcrypt==4.0.1
-pyotp==2.8.0
-qrcode==7.4.2
-ldap3==2.9.1
-python-dotenv==1.0.0
