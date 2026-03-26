@@ -68,4 +68,19 @@ pip install -r requirements.txt
 
 # 4. Run the application
 python app.py
+```
+---
 
+## 🛠️ Future Roadmap & Planned Upgrades
+To further harden the system and prepare it for global production, the following modules are scheduled for development:
+
+| Phase | Feature | Technical Objective | Status |
+| :--- | :--- | :--- | :--- |
+| **Phase 1** | **OAuth2 / OpenID** | Integrate "Sign in with Google/GitHub" for modern SSO. | ⏳ Planned |
+| **Phase 2** | **SMS Gateway** | Add Twilio integration for SMS-based 2FA codes. | ⏳ Planned |
+| **Phase 3** | **Hardware Keys** | Support for FIDO2/WebAuthn (Yubico/Biometrics). | 🚀 In-Research |
+| **Phase 4** | **Admin Dashboard** | A macOS-styled UI to manage users and view live attack logs. | ⏳ Planned |
+| **Phase 5** | **Dockerization** | Containerize the app for seamless deployment via Kubernetes. | 🛠️ Development |
+| **Phase 6** | **SQL Migration** | Support for PostgreSQL alongside MongoDB for ACID compliance. | ⏳ Planned |
+
+---
